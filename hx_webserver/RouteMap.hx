@@ -20,6 +20,13 @@ class RouteMap {
 
     private function routeRequest(request: HTTPRequest) {
         var path = request.methods[1];
+        var queryStart = path.indexOf("?");
+        var query = "";
+        if (queryStart != -1) {
+            query = path.substr(queryStart);
+            path = path.substr(0, queryStart);
+        }
+
         var handler = this.routes.get(path);
 
         var response: HTTPResponse;

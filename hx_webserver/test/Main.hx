@@ -15,7 +15,7 @@ class Main {
     static var server: Socket;
 
     static function main() {
-        Main.serverTest();
+        Main.routeTest();
     }
 
     static function serverTest() {
@@ -36,7 +36,7 @@ class Main {
             throw "error";
         });
 
-        @:privateAccess routemap.routeRequest(new TestRequest("GET", "/test"));
+        @:privateAccess routemap.routeRequest(new TestRequest("GET", "/test?asdf=1"));
         @:privateAccess routemap.routeRequest(new TestRequest("GET", "/error"));
         @:privateAccess routemap.routeRequest(new TestRequest("GET", "/404"));
 
