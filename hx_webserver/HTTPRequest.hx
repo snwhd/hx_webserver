@@ -14,6 +14,7 @@ class HTTPRequest {
     public var postData:String = "";
     private var server:HTTPServer;
     public var methods:Array<String>;
+    public var queryString:String = "";
     public function new (d:Socket, server:HTTPServer, head:String):Void {
         if (d == null) return;
 
@@ -34,6 +35,7 @@ class HTTPRequest {
                 this.headers.push([splitAgain[0], splitAgain[1]]);
             }
             methods = head.split(" ");
+            this.parseQueryString();
             if (methods[0] != "GET") { //hold on this isn't a get request?
                 var t:Array<String> = this.data.split("\r\n");
                 var v:Int = 0;
@@ -92,5 +94,12 @@ class HTTPRequest {
 
     public function replyRaw(bytes: haxe.io.Bytes) {
         client.output.writeFullBytes(bytes, 0, bytes.length);
+    }
+
+    private function parseQueryString() {
+        var queryStart = methods[1].indexOf("?");
+        if (queryStart != -1) {
+            queryString = methods[1].substr(queryStart);
+        }
     }
 }

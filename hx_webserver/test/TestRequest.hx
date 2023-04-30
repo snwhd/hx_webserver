@@ -11,6 +11,7 @@ class TestRequest extends HTTPRequest {
     ) {
         super(null, null, null);
         this.methods = [method, path, version];
+        this.parseQueryString();
     }
 
     override function replyRaw(bytes: haxe.io.Bytes) {

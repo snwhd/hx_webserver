@@ -8,6 +8,7 @@ import haxe.io.Error;
 import hx_webserver.HTTPResponse;
 import hx_webserver.HTTPServer;
 import hx_webserver.RouteMap;
+import hx_webserver.Query;
 
 
 class Main {
@@ -30,13 +31,14 @@ class Main {
     static function routeTest() {
         var routemap = new RouteMap();
         routemap.add("/test", function (r) {
-            return new HTTPResponse(Ok, "Test");
+            var query = Query.fromRequest(r);
+            return new HTTPResponse(Ok, query.get("asdf", "Test"));
         });
         routemap.add("/error", function (r) {
             throw "error";
         });
 
-        @:privateAccess routemap.routeRequest(new TestRequest("GET", "/test?asdf=1"));
+        @:privateAccess routemap.routeRequest(new TestRequest("GET", "/test?asdf=hello"));
         @:privateAccess routemap.routeRequest(new TestRequest("GET", "/error"));
         @:privateAccess routemap.routeRequest(new TestRequest("GET", "/404"));
 

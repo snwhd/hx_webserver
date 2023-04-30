@@ -45,7 +45,9 @@ class RouteMap {
         if (response == null) {
             response = new HTTPResponse(NoContent);
         }
-        request.replyRaw(response.prepare());
+        if (!response.suppress) {
+            request.replyRaw(response.prepare());
+        }
     }
 
 }

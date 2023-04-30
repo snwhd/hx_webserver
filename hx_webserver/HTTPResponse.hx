@@ -7,6 +7,9 @@ class HTTPResponse {
     public var content: Dynamic;
     public var headers: Map<String, String>;
 
+    // prevent response from writing to it's socket
+    public var suppress = false;
+
     public function new(
         statusCode: StatusCode = Ok,
         content: Dynamic = "",
