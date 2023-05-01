@@ -47,6 +47,7 @@ class RouteMap {
         }
         if (!response.suppress) {
             request.replyRaw(response.prepare());
+            request.close();
         }
     }
 
